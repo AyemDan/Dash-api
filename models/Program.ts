@@ -4,7 +4,7 @@ const programSchema = new mongoose.Schema({
     name: { type: String, required: true },
     description: String,
     isActive: { type: Boolean, default: true },
-    modules: [],
+    modules: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Module' }],
     startDate: Date,
     endDate: Date,
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'Admin' },

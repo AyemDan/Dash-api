@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express from 'express';
 import connect from './config/mongodb';
 import authRoutes from './routes/auth';
@@ -24,7 +25,7 @@ export default app;
  * Exported so tests can import app without starting the server.
  */
 export async function startServer(options?: { port?: number; mongoUri?: string }) {
-  const PORT =  4000;
+  const PORT = options?.port || parseInt(process.env.PORT || '4000');
   const MONGO_URI =
     options?.mongoUri ??
     process.env.MONGO_URI ??
