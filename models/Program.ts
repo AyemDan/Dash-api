@@ -1,10 +1,16 @@
-﻿import  mongoose from "mongoose";
+﻿import mongoose from "mongoose";
 
 const programSchema = new mongoose.Schema({
     name: { type: String, required: true },
+    code: { type: String },
     description: String,
-    isActive: { type: Boolean, default: true },
+    isActive: { type: Boolean, default: false },
     modules: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Module' }],
+    participants: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Participant' }],
+    credits: { type: Number, default: 3 },
+    totalCredits: { type: Number, default: 0 },
+    duration: { type: Number, default: 3 },
+    particpantsEnrolled: Number,
     startDate: Date,
     endDate: Date,
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'Admin' },

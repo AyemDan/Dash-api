@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
 import connect from './config/mongodb';
+import cors from 'cors';
 import authRoutes from './routes/auth';
 import programRoutes from './routes/program';
 import moduleRoutes from './routes/modules';
@@ -8,6 +9,7 @@ import participantRoutes from './routes/participant';
 import importRoutes from './routes/import';
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);

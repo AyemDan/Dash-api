@@ -14,9 +14,22 @@ export async function getProgram(req, res) {
 export async function createProgram(req, res) {
     const { title, description } = req.body;
     if (!title) return res.status(400).json({ message: 'title required' });
-    const p = new Program({ name: title, description });
+
+    const code = generateProgramCode(title);
+    const p = new Program({ name: title, description, code });
     await p.save();
     res.status(201).json(p);
+}
+
+function generateProgramCode(title: string): string {
+    const words = title.split(' ').filter(w => w.length > 0);
+    const acronym = words.slice(0, 3).map(w => w[0].toUpperCase()).join('');
+
+    const now = new Date();
+    const quarter = Math.floor(now.getMonth() / 3) + 1;
+    const year = now.getFullYear().toString().slice(-2);
+
+    return `${acronym}${quarter}${year}`;
 }
 
 export async function deleteProgram(req, res) {

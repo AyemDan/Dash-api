@@ -3,7 +3,7 @@ import * as jwt from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
 import { Admin } from '../models/Admin';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret_here';
+const JWT_SECRET = process.env.JWT_SECRET || 'dev_secret';
 export async function authenticateToken(req: Request, res: Response, next: NextFunction) {
     try {
         const authHeader = req.headers.authorization;

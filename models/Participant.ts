@@ -20,7 +20,7 @@ const participantSchema = new mongoose.Schema({
         finalScore: Number,
         gradePoint: Number,
         gradeLetter: String,
-        status: { type: String, enum: ['enrolled', 'completed', 'dropped'], default: 'enrolled' }
+        status: { type: String, enum: ['Registered', 'In Progress', 'Completed', 'dropped'], default: 'enrolled' }
     }],
     enrolledPrograms: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Program' }],
     status: { type: String, enum: ['active', 'inactive', 'graduated'], default: 'active' },
