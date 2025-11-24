@@ -3,9 +3,9 @@ import { Module } from '../models/Module';
 import mongoose from 'mongoose';
 
 export async function createParticipant(req, res) {
-    const { firstName, lastName, email, metadata } = req.body;
-    if (!firstName && !lastName && !email) return res.status(400).json({ message: 'Provide at least a name or email' });
-    const p = new Participant({ firstName, lastName, email, metadata });
+    const { fullname, email, metadata } = req.body;
+    if (!fullname && !email) return res.status(400).json({ message: 'Provide at least a name or email' });
+    const p = new Participant({ fullname, email, metadata });
     await p.save();
     res.status(201).json(p);
 }

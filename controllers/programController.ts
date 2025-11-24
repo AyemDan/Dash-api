@@ -12,11 +12,13 @@ export async function getProgram(req, res) {
 }
 
 export async function createProgram(req, res) {
-    const { title, description } = req.body;
+    const { title, semester, duration } = req.body;
     if (!title) return res.status(400).json({ message: 'title required' });
+        if (!semester) return res.status(400).json({ message: 'semester required' });
+        if (!duration) return res.status(400).json({ message: 'duration required' });
 
     const code = generateProgramCode(title);
-    const p = new Program({ name: title, description, code });
+    const p = new Program({ title, semester, duration, code });
     await p.save();
     res.status(201).json(p);
 }
