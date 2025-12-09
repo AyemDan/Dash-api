@@ -53,7 +53,6 @@ export async function createModule(req, res) {
         });
         await m.save();
 
-        // Update the program to include this module
         await Program.findByIdAndUpdate(programId, {
             $push: { modules: { _id: m._id, title: m.title } }
         });
@@ -61,7 +60,7 @@ export async function createModule(req, res) {
         res.status(201).json(m);
     } catch (error: any) {
         if (error.code === 11000) {
-            // Handle duplicate code by appending a random suffix
+            
             const suffix = Math.floor(Math.random() * 1000);
             const m = new Module({
                 title,

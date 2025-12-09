@@ -26,14 +26,12 @@ export default app;
  * Start the DB connection and HTTP server.
  * Exported so tests can import app without starting the server.
  */
+const DEFAULT_PORT = parseInt(process.env.PORT || '4000');
+const ENV_MONGO_URI = process.env.MONGO_URI;
+
 export async function startServer(options?: { port?: number; mongoUri?: string }) {
-  const PORT = options?.port || parseInt(process.env.PORT || '4000');
-  const MONGO_URI =
-    options?.mongoUri ??
-    process.env.MONGO_URI ??
-    (process.env.NODE_ENV === 'test'
-      ? 'mongodb://localhost:27017/test'
-      : 'mongodb://localhost:27017/dash-api');
+  const PORT = options?.port || DEFAULT_PORT;
+  const MONGO_URI = options?.mongoUri || ENV_MONGO_URI;
 
   console.log(`Mongo URI: ${MONGO_URI}`);
 
@@ -42,7 +40,6 @@ export async function startServer(options?: { port?: number; mongoUri?: string }
   return server;
 }
 
-// Start automatically only when not running under test (prevents Jest/mocha from spawning the server)
 if (process.env.NODE_ENV !== 'test') {
   startServer().catch(err => {
     console.error('Failed to start server', err);
